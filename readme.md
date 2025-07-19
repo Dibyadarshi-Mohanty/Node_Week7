@@ -36,7 +36,7 @@ PORT=5000
 
 🔧 Installation & Setup
 1.Clone the Repository
-git clone https://github.com/Dibyadarshi-Mohanty/jwt-auth-api.git
+git clone https://github.com/Dibyadarshi-Mohanty/Node_Week7
 cd jwt-auth-api
 
 
