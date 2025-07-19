@@ -37,8 +37,6 @@ PORT=5000
 🔧 Installation & Setup
 1.Clone the Repository
 git clone https://github.com/Dibyadarshi-Mohanty/Node_Week7
-cd jwt-auth-api
-
 
 2.Install Dependencies
 npm install

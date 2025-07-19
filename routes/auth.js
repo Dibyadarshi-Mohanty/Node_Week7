@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { sign } from 'jsonwebtoken';
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 import { hash, compare } from 'bcryptjs';
 const router = Router();
 
-const users = []; // In-memory user storage
+const users = []; 
 
-// Register Route
 router.post('/register', async (req, res) => {
     const { email, password } = req.body;
 
@@ -19,7 +19,6 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ message: 'User registered successfully' });
 });
 
-// Login Route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -29,7 +28,7 @@ router.post('/login', async (req, res) => {
     const isMatch = await compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = ({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
 });
 

@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 import { config } from 'dotenv';
-import authRoutes from './routes/auth';
+import authRoutes from './routes/auth.js';
 
 config();
 
@@ -10,7 +10,7 @@ app.use(json());
 app.use('/api/auth', authRoutes);
 
 // Protected Route Example
-import verifyToken from './middleware/auth';
+import verifyToken from './middleware/auth.js';
 app.get('/api/protected', verifyToken, (req, res) => {
     res.json({ message: `Welcome ${req.user.email}, this is a protected route!` });
 });
