@@ -1,19 +1,30 @@
-import express, { json } from 'express';
+import express from 'express';
 import { config } from 'dotenv';
-import authRoutes from './routes/auth.js';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import uploadRoute from './routes/upload.js';
+import weatherRoute from './routes/weather.js';
+import errorHandler from './middleware/errorHandler.js';
 
 config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
-app.use(json());
+const PORT = process.env.PORT || 3000;
 
-app.use('/api/auth', authRoutes);
+app.use(express.json());
+app.use('/uploads', express.static(join(__dirname, 'uploads')));
+app.use('/upload', uploadRoute);
+app.use('/weather', weatherRoute);
 
-// Protected Route Example
-import verifyToken from './middleware/auth.js';
-app.get('/api/protected', verifyToken, (req, res) => {
-    res.json({ message: `Welcome ${req.user.email}, this is a protected route!` });
+app.get('/', (req, res) => {
+    res.send('Welcome to the Enhanced Node.js App!');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use(errorHandler);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
